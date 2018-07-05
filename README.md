@@ -1,5 +1,5 @@
 # VulSE
-VulSE is a Py application which search for vulnerabilities into a web page
+VulSE is a Py application which searches for vulnerabilities into a web page
 
 ```bash
     ______
