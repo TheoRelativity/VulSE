@@ -1,4 +1,5 @@
 import settings
+from injector import *
 settings.init()
 
 print('''   
@@ -39,9 +40,9 @@ def set(user_commands):
             settings.settings['proxy'] = user_commands[2]
             print(" [*] Proxy ok: " + settings.settings["proxy"])
             main()
-        if user_commands[1] == "url":
-            settings.settings['url'] = user_commands[2]
-            print(" [*] URL ok: " + settings.settings["url"])
+        if user_commands[1] == "target":
+            settings.settings['target'] = user_commands[2]
+            print(" [*] Target set: " + settings.settings["target"])
             main()
         else:
             settings.print_error(1)
@@ -58,6 +59,7 @@ def main():
 def start(tests=0):
     if tests == 0:
         print(" [*] Full test selected")
+        injector_init([0])
         print(" [!] Test ended with success")
         main()
 
