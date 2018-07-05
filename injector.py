@@ -1,4 +1,4 @@
-import urllib
+import urllib.request
 import re
 import settings
 
@@ -20,6 +20,39 @@ def injector_init(attacks):
 
 def injector(payloads, check):
     print(" [!] Injector started")
+    vulnerabilities = 0
+    target_url = settings.settings["target"]
+    
+    for params in target_url.split("?")[1].split("&"):
+        print(" [!] Testing param: " + str(params))
+        for payload in payloads:
+		    # Use a proxy
+            if "proxy" in settings.settings and settings.settings["proxy"] != "off":
+                proxy = urllib.request.ProxyHandler({'http': settings.settings["proxy"]})
+                opener = urllib.request.build_opener(proxy)
+                urllib.request.install_opener(opener)
+				
+            injected_url = target_url.replace(params, params + str(payload).strip())
+            inj_req = urllib.request.Request(injected_url)
+            try:
+                inject = urllib.request.urlopen(injected_url)
+            except urllib.error.HTTPError as e:		                
+                print(" [!] Error. Exit code " + str(e.code()))
+                main()
+            with inject as inj_response:
+                if inj_response.code == 200:
+                    inj_html = inj_response.read()
+                    print(" [*] Inj_Page response code " + str(inj_response.code))
+                    for line in inj_html.splitlines():
+                        checker = re.findall(check, str(line))
+                        if len(checker) !=0:
+                            print(" [*] Payload Found . . .")
+                            print(" [!] Code Snippet: "  + str(line).strip())
+                            vulnerabilities+=1
+        if vulnerabilities == 0:                
+            print(" [!] Target is not vulnerable!")
+        else:
+            print(" [!] Congratulations you've found %i bugs :-) " % (vulnerabilities) )
 		# with urllib.request.urlopen(url) as response:
 		    # html = response.read()
 		    # vuln = 0
