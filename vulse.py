@@ -1,3 +1,4 @@
+from lib.vRequests import * 
 import settings
 from injector import *
 settings.init()
@@ -21,6 +22,8 @@ print('''
 
 def commands(user_commands):
     if len(user_commands) > 0:
+        if user_commands[0] == "show":
+            show(user_commands)
         if user_commands[0] == "set":
             set(user_commands)
         if user_commands[0] == "start":
@@ -36,13 +39,21 @@ def commands(user_commands):
 def set(user_commands):
      total_words = len(user_commands)
      if  total_words > 2:
-        if user_commands[1] == "proxy":
-            settings.settings['proxy'] = user_commands[2]
+        if user_commands[1] == "cookie":
+            settings.settings['cookies'][user_commands[2]] = user_commands[3]
+            print(" [*] Cookies set: " + str(settings.settings["cookies"]))
+            main()
+        if user_commands[1] == "proxy": 
+            settings.settings['proxy'] = "on" if user_commands[2] == "on" else "off"
             print(" [*] Proxy ok: " + settings.settings["proxy"])
             main()
         if user_commands[1] == "target":
             settings.settings['target'] = user_commands[2]
-            print(" [*] Target set: " + settings.settings["target"])
+            print("\n [*] Target set: " + settings.settings["target"] + "\n")
+            main()
+        if user_commands[1] == "auth":
+            settings.settings['auth'] = user_commands[2]
+            print(" [*] Auth set: " + str(settings.settings["auth"]))
             main()
         else:
             settings.print_error(1)
@@ -51,6 +62,16 @@ def set(user_commands):
          print(" [!] You are missing required parameters")
          main()
 
+def show(user_commands):
+     total_words = len(user_commands)
+     if  total_words > 1:
+        if user_commands[1] == "config":
+            print("\n========= C O N F I G =========\n")
+            for key,value in settings.settings.items():
+                print("   " + str(key) + ": " + str(value))
+            print("\n===============================\n")
+     main()
+	 
 def main():
     user_input = input("vulse:")
     user_commands = user_input.split()

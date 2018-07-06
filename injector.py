@@ -2,6 +2,7 @@ import urllib.request
 import re
 from tests import *
 import settings
+from lib.vRequests import *
 
 
 def injector_init(attacks):
@@ -12,7 +13,7 @@ def injector_init(attacks):
     if "target" in settings.settings:
         print(" [*] Options")
         for key,value in settings.settings.items():
-            print("     - " + key + ": " + value)
+            print("     - " + str(key) + ": " + str(value))
         for attack in attacks:
             tests[attack]()
     else:
@@ -20,20 +21,26 @@ def injector_init(attacks):
 
 
 def injector(payloads, check):
+    vulser = vRequests()
+    vulser.custom(settings.settings["target"])
+	
+	# This code flow must be ignored.
     print(" [!] Injector started")
     vulnerabilities = 0
     target_url = settings.settings["target"]
-    
+
     for params in target_url.split("?")[1].split("&"):
         print(" [!] Testing param: " + str(params))
-        for payload in payloads:
-		    # Use a proxy
+		
+        for key,payload in payloads.items():
+            # Use a proxy
             if "proxy" in settings.settings and settings.settings["proxy"] != "off":
                 proxy = urllib.request.ProxyHandler({'http': settings.settings["proxy"]})
                 opener = urllib.request.build_opener(proxy)
                 urllib.request.install_opener(opener)
-				
-            injected_url = target_url.replace(params, params + str(payload).strip())
+            
+           		
+            injected_url = target_url.replace(params, params + str(payload[0]).strip())
             inj_req = urllib.request.Request(injected_url)
             try:
                 inject = urllib.request.urlopen(injected_url)
@@ -51,6 +58,7 @@ def injector(payloads, check):
                             print(" [*] Payload: " + str(payload))
                             #print(" [!] Code Snippet: "  + str(line).strip())
                             vulnerabilities+=1
+            inject.close()
     if vulnerabilities == 0:                
         print(" [!] Target is not vulnerable!")
     else:
