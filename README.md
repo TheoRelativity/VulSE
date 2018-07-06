@@ -66,7 +66,7 @@ vulse: set proxy 127.0.0.1:8080
 ## Changelog
 ### 0.1
 
-- Added Requests: HTTP for Humans
+- Added [Requests](https://github.com/requests/requests/): HTTP for Humans
 - Created vRequests class to manage Requests library
 - Added user-agent
 - Added set cookie feature
