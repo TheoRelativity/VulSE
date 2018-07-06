@@ -26,6 +26,12 @@ VulSE is a Py application which searches for vulnerabilities into a web page. I 
 
 He tries to hack a webpage using preloaded attacks on it and then analyzes results to determine if it has vulnerabilities to exploit.
 
+## Installation
+
+### Requirements
+- Python3
+- [Requests](https://github.com/requests/requests/) Library installed
+
 ## How it works?
 
 Once launched vulse.py in a shell/cmd
