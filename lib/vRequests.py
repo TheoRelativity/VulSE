@@ -17,7 +17,7 @@ class vRequests(object):
             cookies = settings.settings["cookies"]
 	
         r = requests.get(url,headers=headers,proxies=proxies,cookies=cookies)
-        print(r.text)
+        return r
 
     def set_proxies(self):
        http_proxy = https_proxy = settings.settings["http-proxy"]

@@ -1,6 +1,6 @@
 from lib.vRequests import * 
 import settings
-from injector import *
+from scan import *
 settings.init()
 
 print('''   
@@ -8,15 +8,15 @@ print('''
    /_____/\\__  __  _____   _____
    \__  _\/_/_/_/\\/____/\\ /____/\\
       \ \ \\ \-\\ \\/_   _\\//     \/
-      r  e  l  a  t  i_ v  i  t  y
+      R  e  l  a  t  i_ v  i  t  Y
          \\_\\/\\_\\/\\_\/\\\\__//\\___//
 
      github.com/TheoRelativity/VulSE
 	 
-                VulSE 0.0
+                VulSE 0.1
        Vulnerabilities Search Engine
         
-    This project is still under developing.
+         It is a work in progress.
 
 ''')
 
@@ -24,16 +24,18 @@ def commands(user_commands):
     if len(user_commands) > 0:
         if user_commands[0] == "show":
             show(user_commands)
-        if user_commands[0] == "set":
+        elif user_commands[0] == "set":
             set(user_commands)
-        if user_commands[0] == "start":
-            if len(user_commands) == 1:
-                start()
         elif user_commands[0] == "exit":
             exit()
-        else:
-            print(" [!] Unknown command")
+        elif user_commands[0] == "scan":
+            scan_init(user_commands)
             main()
+    elif user_commands[0] == "scan":
+        scan_init(user_commands)
+    else:
+        print(" [!] Unknown command")
+        main()
 
 
 def set(user_commands):
