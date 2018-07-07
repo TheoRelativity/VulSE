@@ -18,7 +18,7 @@ VulSE is a Py application which searches for vulnerabilities into a web page. I 
                 VulSE 0.1
        Vulnerabilities Search Engine
 
-    This project is still under developing.
+    This project is a work in progress.
 
 ```
 
