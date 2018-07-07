@@ -84,7 +84,9 @@ The simplest scanner is the "SQL Injection scanner - Error Based". The scanner s
 Example. 
 
 Target: averybuggedsite.com/vulnerable_page.php?select_user=12
+
 parameter: 12
+
 payload: parameter'
 
 Once the injection has been executed by the scanner, it analyzes the response of the request and it searches for SQL/Database/DBMS error strings.
