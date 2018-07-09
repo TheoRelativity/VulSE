@@ -13,7 +13,7 @@ print('''
 
      github.com/TheoRelativity/VulSE
 	 
-                VulSE 0.1
+                VulSE 0.3
        Vulnerabilities Search Engine
         
          It is a work in progress.

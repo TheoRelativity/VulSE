@@ -17,7 +17,15 @@ class vRequests(object):
             cookies = settings.settings["cookies"]
 	
         r = requests.get(url,headers=headers,proxies=proxies,cookies=cookies)
-        return r
+        bad_request = True if (r.status_code == requests.codes.ok) else False
+      
+        result = {
+             "bad_request": bad_request,
+             "code": r.status_code,
+             "text": r.text,
+             "url":  r.url			 
+                }
+        return result
 
     def set_proxies(self):
        http_proxy = https_proxy = settings.settings["http-proxy"]
