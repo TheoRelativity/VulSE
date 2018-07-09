@@ -11,7 +11,7 @@ VulSE is a Python application which searches for vulnerabilities into a web appl
    /_____/\__  __  _____   _____
    \__  _\/_/_/_/\/____/\ /____/\
       \ \ \ \-\ \/_   _\//     \/
-      r  e  l  a  t  i_ v  i  t  y
+      R  e  l  a  t  i_ v  i  t  Y
          \_\/\_\/\_\/\\__//\___//
 
      github.com/TheoRelativity/VulSE
@@ -25,7 +25,7 @@ VulSE is a Python application which searches for vulnerabilities into a web appl
 
 ## What it does?
 
-It scans a target (web page, web server) and tries to detect vulnerabilities and generates a detailed report[1]. Its scanners can be added at runtime execution.[1] This feature permits to every developer to implement its own scanner to add to the application. Its internal scanner can be override too.
+It scans a target (web page, web server) and tries to detect vulnerabilities and generates a detailed report[1]. Its scanners can be added at runtime execution.[1] This feature permits to every developer to implement its own scanner to add to the application.
 
 [1] Feature under development
 
