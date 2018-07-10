@@ -4,7 +4,7 @@ VulSE is a Python application which searches for vulnerabilities into a web appl
 
 **This project is a work in progress.**
 
-> Latest update 09 July 2018
+> Latest update 10 July 2018
 
 ```bash
     ______
@@ -16,7 +16,7 @@ VulSE is a Python application which searches for vulnerabilities into a web appl
 
      github.com/TheoRelativity/VulSE
 
-                VulSE 0.3
+                VulSE 0.4
        Vulnerabilities Search Engine
 
     This project is a work in progress.
@@ -73,23 +73,33 @@ show config
 set proxy on
 ```
 
-**Currently not active - 0.2**
+## Set Method GET/POST
+
+```bash
+set method post
+```
+
+**Currently not active -   >0.2**
+
 ```bash
 vulse: set proxy 127.0.0.1:8080
 ```
 
-## Scanner Example
+## Plugins
 
-The simplest scanner is the "SQL Injection scanner - Error Based". The scanner sends a payload to the target and then analyze the result of the attack.
-Example. 
+### SQL Injection Error Based
 
-Target: averybuggedsite.com/vulnerable_page.php?select_user=12
+Description: It searches for SQL injection vulnerabilities analyzing the results of the attack.
 
-parameter: 12
+id: sql_inj_eb
 
-payload: parameter'
+### Advanced function
 
-Once the injection has been executed by the scanner, it analyzes the response of the request and it searches for SQL/Database/DBMS error strings.
+#### Filters Detect
+
+parameters: 
+ * check_text: Use this text to detect filters
+
 
 ## Changelog
 
