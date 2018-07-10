@@ -73,19 +73,26 @@ show config
 set proxy on
 ```
 
-## Set Method GET/POST
-
-```bash
-set method post
-```
-
 **Currently not active -   >0.2**
 
 ```bash
 vulse: set proxy 127.0.0.1:8080
 ```
 
+## Set Method GET/POST
+
+```bash
+set method post
+```
+### Set Data for POST requests
+
+```bash
+set data ?title=text&action=search
+```
+
 ## Plugins
+
+**Note** the feature "set in" has been implemented in the 0.4 version but will be completed in the version 0.5
 
 ### SQL Injection Error Based
 
@@ -93,15 +100,61 @@ Description: It searches for SQL injection vulnerabilities analyzing the results
 
 id: sql_inj_eb
 
-### Advanced function
+### Features
 
-#### Filters Detect
+#### Filters Detection
 
 parameters: 
  * check_text: Use this text to detect filters
+ 
+### Example of usage
+
+```bash
+vulse: set target http://localhost/vulnerables/bwapp/sqli_1.php?title=ciao&action=search
+[*] Target set: http://localhost/vulnerables/bwapp/sqli_1.php?title=&action=search
+vulse: set in sql_inj_eb check_text "No movies were found!"
+[*] Plugin settings updated: {'check_text': 'No movies were found!'}
+vulse:scan
+ [!] Scan Initialization started
+ [*] Options
+     - proxy: on
+     - http-proxy: 127.0.0.1:8080
+     - https-proxy:
+     - user-agent: VulSE 0.0
+     - cookies: {'security_level': '1', 'PHPSESSID': 'qiud7u5kgbe59po7hbuds6k5i6
+'}
+     - method: get
+     - data:
+     - scan: full
+     - target: http://localhost/vulnerables/bwapp/sqli_1.php?title=ciao&action=search
+
+                #####################################
+                #                                   #
+                # SQL injection - Error Based v. 0  #
+                #                                   #
+                #####################################
+
+ [!] SQL Inj EB initialized correctly
+ [!] Testing param: title=ciao
+ [*] Filter Detected!!!
+ [*] Filter Detected!!!
+ [!] Testing param: action=search
+ [*] Filter Detected!!!
+ [*] Filter Detected!!!
+ [!] Scan complete
+```
 
 
 ## Changelog
+
+### 0.4
+10 July 2018
+
+- Added a draft of sql_inj_error_based plugin
+- Implemented the plugin's idea
+- Added POST request in vRequest.custom()
+- Added plugin settings
+- Added "set in" feature
 
 ### 0.3
 09 July 2018
