@@ -4,8 +4,8 @@ import settings
 
 class vRequests(object):
     
-    def custom(self,url):
-        proxies = headers = cookies = {}
+    def custom(self,url,parameters={}):
+        proxies = headers = cookies = data = {}
 		# Use custom user-agent
         if settings.settings["user-agent"] != "":
             headers.update({'user-agent': settings.settings["user-agent"]})
@@ -15,8 +15,14 @@ class vRequests(object):
 		# Use cookies
         if settings.settings["cookies"] != "":
             cookies = settings.settings["cookies"]
-	
-        r = requests.get(url,headers=headers,proxies=proxies,cookies=cookies)
+		# Set Post
+        if "method" in parameters and parameters["method"] == "post":
+            if "data" in parameters:
+                data = parameters["data"]
+                r = requests.post(url,headers=headers,proxies=proxies,cookies=cookies,data=data)
+        else:
+            r = requests.get(url,headers=headers,proxies=proxies,cookies=cookies,data=data)
+
         bad_request = True if (r.status_code == requests.codes.ok) else False
       
         result = {
